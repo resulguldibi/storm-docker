@@ -1,0 +1,5 @@
+supervisor-data/
+supervisor-logs/
+ui-logs/
+nimbus-logs/
+nimbus-data/
