@@ -1,5 +1,9 @@
 supervisor-data/
 supervisor-logs/
 ui-logs/
+ui-data/
 nimbus-logs/
 nimbus-data/
+/**/.idea/*
+/**/*.iml
+/**/target/*

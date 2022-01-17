@@ -20,7 +20,7 @@ services:
             KAFKA_ADVERTISED_HOST_NAME: localhost
             KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     nimbus:
-        image: storm:2.0.0
+        image: storm:2.3.0
         container_name: nimbus
         command: storm nimbus
         depends_on:
@@ -35,7 +35,7 @@ services:
             - './nimbus-data:/data'
             - './nimbus/storm.yaml:/conf/storm.yaml'
     ui:
-        image: storm:2.0.0
+        image: storm:2.3.0
         container_name: ui
         command: storm ui
         depends_on:
@@ -51,7 +51,7 @@ services:
             - './ui-data:/data'
             - './ui/storm.yaml:/conf/storm.yaml'
     supervisor:
-        image: storm:2.0.0
+        image: storm:2.3.0
         container_name: supervisor
         command: storm supervisor
         depends_on:
