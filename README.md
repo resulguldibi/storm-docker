@@ -7,5 +7,11 @@ https://gist.github.com/ueokande/b96eadd798fff852551b80962862bfb3
 
 --topic partiton sayısı güncelleme
 /kafka-topics.sh --bootstrap-server localhost:9092 --topic kafka-spout-test --alter --partitions 2
+
 --topic detay görüntüleme
 ./kafka-topics.sh --bootstrap-server localhost:9092 --topic kafka-spout-test --describe
+
+--örnek storm topolojini hazırlama
+cd storm-topologies
+mvn clean
+mvn packace

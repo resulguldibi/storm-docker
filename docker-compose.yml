@@ -22,7 +22,7 @@ services:
     nimbus:
         image: storm:2.3.0
         container_name: nimbus
-        command: storm nimbus
+        command: bash -c "storm nimbus && cd /storm-topologies && storm jar target/storm-topologies-1.0.0-jar-with-dependencies.jar com.resulguldibi.storm.samples.KafkaSpoutTopologyMainNamedTopics"
         depends_on:
             - zookeeper
         links:
@@ -34,6 +34,7 @@ services:
             - './nimbus-logs:/logs'
             - './nimbus-data:/data'
             - './nimbus/storm.yaml:/conf/storm.yaml'
+            - './storm-topologies:/storm-topologies'
     ui:
         image: storm:2.3.0
         container_name: ui
@@ -66,4 +67,28 @@ services:
             - './supervisor-logs:/logs'
             - './supervisor-data:/data'
             - './supervisor/storm.yaml:/conf/storm.yaml'
+#    topology-packager:
+#        build: ./topology-packager
+#        container_name: topology-submitter
+#        command: bash -c "cd /storm-topologies && mvn clean && mvn package"
+#        depends_on:
+#            - supervisor
+#            - nimbus
+#            - ui
+#        restart: always
+#        volumes:
+#            - './storm-topologies:/storm-topologies'             
+#    topology-submitter:
+#        image: storm:2.3.0
+#        container_name: topology-submitter
+#        command: bash -c "cd /storm-topologies && storm jar target/storm-topologies-1.0.0.jar com.resulguldibi.storm.samples.KafkaSpoutTopologyMainNamedTopics"
+#        depends_on:
+#            - supervisor
+#            - nimbus
+#            - ui
+#        restart: always
+#        volumes:
+#            - './topology-submitter-logs:/logs'
+#            - './topology-submitter-data:/data'
+#            - './storm-topologies:/storm-topologies'            
 

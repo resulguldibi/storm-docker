@@ -52,9 +52,11 @@ public class KafkaSpoutTopologyMainNamedTopics {
 
     Config tpConf = getConfig();
 
-    LocalCluster localCluster = new LocalCluster();
-    //Consumer. Sets up a topology that reads the given Kafka spouts and logs the received messages
-    localCluster.submitTopology("storm-kafka-client-spout-test", tpConf, getTopologyKafkaSpout(getKafkaSpoutConfig(brokerUrl)));
+//    LocalCluster localCluster = new LocalCluster();
+//    //Consumer. Sets up a topology that reads the given Kafka spouts and logs the received messages
+//    localCluster.submitTopology("storm-kafka-client-spout-test", tpConf, getTopologyKafkaSpout(getKafkaSpoutConfig(brokerUrl)));
+
+    StormSubmitter.submitTopology("storm-kafka-client-spout-test", tpConf, getTopologyKafkaSpout(getKafkaSpoutConfig(brokerUrl)));
   }
 
   protected Config getConfig() {
