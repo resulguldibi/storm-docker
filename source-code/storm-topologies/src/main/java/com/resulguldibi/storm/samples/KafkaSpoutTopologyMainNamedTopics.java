@@ -38,7 +38,7 @@ import org.apache.storm.tuple.Values;
 public class KafkaSpoutTopologyMainNamedTopics {
 
 
-  private static final String KAFKA_LOCAL_BROKER = "localhost:9092";
+  private static final String KAFKA_LOCAL_BROKER = "host.docker.internal:9092";
   public static final String TOPIC_0 = "kafka-spout-test";
 
 

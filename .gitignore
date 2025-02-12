@@ -1,9 +1,9 @@
-supervisor-data/
-supervisor-logs/
-ui-logs/
-ui-data/
-nimbus-logs/
-nimbus-data/
+docker-infra/*/logs/
+docker-infra/*/data/
+docker-infra/maven/output/
+docker-infra/maven/.m2/
+.idea
 /**/.idea/*
 /**/*.iml
-/**/target/*
+/**/target
+/**/**/target

@@ -2,11 +2,11 @@ version: '3.1'
 
 services:
     zookeeper:
-        image: zookeeper
+        image: resulguldibi/zookeeper
         container_name: zookeeper
         restart: always
     kafka:
-        image: wurstmeister/kafka
+        image: resulguldibi/kafka
         container_name: kafka
         depends_on:
             - zookeeper
@@ -20,9 +20,9 @@ services:
             KAFKA_ADVERTISED_HOST_NAME: localhost
             KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     nimbus:
-        image: storm:2.3.0
+        image: resulguldibi/nimbus
         container_name: nimbus
-        command: bash -c "storm nimbus && cd /storm-topologies && storm jar target/storm-topologies-1.0.0-jar-with-dependencies.jar com.resulguldibi.storm.samples.KafkaSpoutTopologyMainNamedTopics"
+        command: bash -c "storm nimbus"
         depends_on:
             - zookeeper
         links:
@@ -31,12 +31,11 @@ services:
         ports:
             - 6627:6627
         volumes:
-            - './nimbus-logs:/logs'
-            - './nimbus-data:/data'
-            - './nimbus/storm.yaml:/conf/storm.yaml'
-            - './storm-topologies:/storm-topologies'
+            - './docker-infra/nimbus/logs:/logs'
+            - './docker-infra/nimbus/data:/data'
+            - './docker-infra/nimbus/storm.yaml:/conf/storm.yaml'
     ui:
-        image: storm:2.3.0
+        image: resulguldibi/ui
         container_name: ui
         command: storm ui
         depends_on:
@@ -48,11 +47,11 @@ services:
            - 8080:8080
            - 8000:8000
         volumes:
-            - './ui-logs:/logs'
-            - './ui-data:/data'
-            - './ui/storm.yaml:/conf/storm.yaml'
+            - './docker-infra/ui/logs:/logs'
+            - './docker-infra/ui/data:/data'
+            - './docker-infra/ui/storm.yaml:/conf/storm.yaml'
     supervisor:
-        image: storm:2.3.0
+        image: resulguldibi/supervisor
         container_name: supervisor
         command: storm supervisor
         depends_on:
@@ -64,9 +63,16 @@ services:
             - kafka
         restart: always
         volumes:
-            - './supervisor-logs:/logs'
-            - './supervisor-data:/data'
-            - './supervisor/storm.yaml:/conf/storm.yaml'
+            - './docker-infra/supervisor/logs:/logs'
+            - './docker-infra/supervisor/data:/data'
+            - './docker-infra/supervisor/storm.yaml:/conf/storm.yaml'
+    maven:
+        image: resulguldibi/maven
+        container_name: maven
+        volumes:
+            - './source-code/storm-topologies:/source-code/storm-topologies'
+            - './docker-infra/maven/.m2:/root/.m2'
+            - './docker-infra/maven/output:/output'
 #    topology-packager:
 #        build: ./topology-packager
 #        container_name: topology-submitter

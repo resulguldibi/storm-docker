@@ -53,7 +53,7 @@ public class KafkaSpoutTestBolt extends BaseRichBolt {
         String json = "{\"id\":"+offset+",\"name\":\""+value+"\"}";
         RequestBody body = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
-                .url("http://localhost:8080/customers")
+                .url("http://host.docker.internal:8080/customers")
                 .post(body)
                 .addHeader("Content-Type", "application/json")
                 .build();
